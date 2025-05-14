@@ -6,6 +6,7 @@ from utils.network_utils import get_network
 from utils.data_utils import get_dataloader
 from pruner.pruning import *
 from train_test import *
+import time
 
 def main():
     config = init_config()
@@ -79,7 +80,11 @@ def main():
         exit()
 
     # ===== train =====
+    start_time = time.time()
     tr_str, print_inf = train_once(mb, trainloader, testloader, config, writer, logger, state, config.lr_mode, config.optim_mode, masks=masks)#
+    end_time = time.time();
+    elapsed_time = end_time - start_time
+    print(f"操作耗时：{elapsed_time}秒")
     config.send_mail_str += print_inf
     config.send_mail_str += tr_str
     print(config.send_mail_str)

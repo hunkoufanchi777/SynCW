@@ -571,6 +571,7 @@ def SynFlow(model, ratio, dataloader, device, num_iters, eff_rank=False, ori_mas
     input = torch.ones([1] + input_dim).to(device)
     copy_net_weights = dict()
 
+
     for layer in old_net.modules():
         if isinstance(layer, nn.Conv2d)  or isinstance(layer, nn.Linear):
             copy_net_weights[layer] = torch.clone(layer.weight.data)
